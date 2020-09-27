@@ -1,5 +1,5 @@
-# sistema-de-judoca
-Projeto de Laboratório
+# Back-sistema-de-judoca
+Projeto de Laboratório de engenharia
 
 Integrantes da Equipe
 1. João Vitor Ribeiro Pessini – 31820999
