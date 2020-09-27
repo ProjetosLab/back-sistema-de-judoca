@@ -10,7 +10,7 @@ namespace Judoca.Services
     public interface ITesteFacade
     {
         string retorno();
-        string cadastro(string nome, DateTime niver, string cbj, string tel1, string tel2, string email, string cpf, string rg, string org, string ob);
+        string cadastro(string nome, DateTime niver, string cbj, string tel1, string tel2, string email, string cpf, string rg, string org, string ob,string tipo);
     }
 
     public class Teste : ITesteFacade
@@ -30,7 +30,7 @@ namespace Judoca.Services
             return num.ToString();
         }
 
-        public string cadastro(string nome,DateTime niver,string cbj,string tel1,string tel2,string email,string cpf,string rg,string org, string ob)
+        public string cadastro(string nome,DateTime niver,string cbj,string tel1,string tel2,string email,string cpf,string rg,string org, string ob,string tipo)
         {
 
             var validacao = (from vali in _context.TblFiliado
@@ -50,7 +50,8 @@ namespace Judoca.Services
                 a.Rg = rg;
                 a.OrgaoExp = org;
                 a.Observacao = ob;
-
+                a.Tipo = tipo;
+                a.DataCadastro = DateTime.Now;
                 _context.TblFiliado.Add(a);
                 _context.SaveChanges();
 

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Samuel\\Mackenzie\\Lab Eng Software\\Projeto\\sistema-de-judoca\\Judoca\\Judoca\\Judoca.csproj": {}
+    "D:\\Samuel\\Mackenzie\\Lab-Eng-Software\\Projeto\\sistema-de-judoca\\Judoca\\Judoca\\Judoca.csproj": {}
   },
   "projects": {
-    "D:\\Samuel\\Mackenzie\\Lab Eng Software\\Projeto\\sistema-de-judoca\\Judoca\\Judoca\\Judoca.csproj": {
+    "D:\\Samuel\\Mackenzie\\Lab-Eng-Software\\Projeto\\sistema-de-judoca\\Judoca\\Judoca\\Judoca.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Samuel\\Mackenzie\\Lab Eng Software\\Projeto\\sistema-de-judoca\\Judoca\\Judoca\\Judoca.csproj",
+        "projectUniqueName": "D:\\Samuel\\Mackenzie\\Lab-Eng-Software\\Projeto\\sistema-de-judoca\\Judoca\\Judoca\\Judoca.csproj",
         "projectName": "Judoca",
-        "projectPath": "D:\\Samuel\\Mackenzie\\Lab Eng Software\\Projeto\\sistema-de-judoca\\Judoca\\Judoca\\Judoca.csproj",
+        "projectPath": "D:\\Samuel\\Mackenzie\\Lab-Eng-Software\\Projeto\\sistema-de-judoca\\Judoca\\Judoca\\Judoca.csproj",
         "packagesPath": "C:\\Users\\samuc\\.nuget\\packages\\",
-        "outputPath": "D:\\Samuel\\Mackenzie\\Lab Eng Software\\Projeto\\sistema-de-judoca\\Judoca\\Judoca\\obj\\",
+        "outputPath": "D:\\Samuel\\Mackenzie\\Lab-Eng-Software\\Projeto\\sistema-de-judoca\\Judoca\\Judoca\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\samuc\\AppData\\Roaming\\NuGet\\NuGet.Config"

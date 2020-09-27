@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5bjC8fvAA/tu6z1jrKSo8HV82oXtZVU1AG7GobkTqP0pJ1wT+ccNs/InYMhd2TP9Jsby2Gygs1Zus/wxAgYcVw==",
+  "dgSpecHash": "fgos0RdVffzSPZea8Koyu0CIZnYUyLGAJbHNirkdpGV8jzazA7iM61kKiVMQ5HKn0uSr0HqduPZU2KD7rhRsvQ==",
   "success": true,
-  "projectFilePath": "D:\\Samuel\\Mackenzie\\Lab Eng Software\\Projeto\\sistema-de-judoca\\Judoca\\Judoca\\Judoca.csproj",
+  "projectFilePath": "D:\\Samuel\\Mackenzie\\Lab-Eng-Software\\Projeto\\sistema-de-judoca\\Judoca\\Judoca\\Judoca.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\samuc\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.2.6\\microsoft.aspnet.webapi.client.5.2.6.nupkg.sha512",
     "C:\\Users\\samuc\\.nuget\\packages\\microsoft.aspnetcore\\2.1.1\\microsoft.aspnetcore.2.1.1.nupkg.sha512",

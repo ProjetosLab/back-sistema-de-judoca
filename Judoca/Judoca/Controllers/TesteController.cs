@@ -29,7 +29,7 @@ namespace Judoca.Controllers
             return true;
         }
 
-        [HttpGet("NA/{nome}/{niver}/{cbj}/{tel1}/{tel2}/{email}/{cpf}/{rg}/{org}/{ob?}")]
+        [HttpGet("NA/aluno/{nome}/{niver}/{cbj}/{tel1}/{tel2}/{email}/{cpf}/{rg}/{org}/{ob?}")]
         public ActionResult<string> cadastra(string nome,string  niver ,string cbj, string tel1,string tel2,string email, string cpf, string rg, string org, string ob)
         {
             int dia = int.Parse(niver.Split('-')[2]);
@@ -38,10 +38,22 @@ namespace Judoca.Controllers
             DateTime niverFormat = new DateTime(ano, mes, dia);
             //DateTime niver = DateTime.Parse("13/07/2000");
             // nome,cbj,niver,tel1,tel2,email,cpf,rg,org,ob
-            //NA/João Vitor Pessini/2000-07-13/na/989613959/36997436/teste@gmail.com/48927640861/38057603X/ssp/teste
-            return _teste.cadastro(nome, niverFormat, cbj, tel1, tel2, email, cpf, rg, org, ob);
+            //api/Teste/NA/aluno/João Vitor Pessini/2000-07-13/na/989613959/36997436/teste@gmail.com/48927640861/38057603X/ssp/teste
+            return _teste.cadastro(nome, niverFormat, cbj, tel1, tel2, email, cpf, rg, org, ob, "A");
         }
 
+        [HttpGet("NA/professor/{nome}/{niver}/{cbj}/{tel1}/{tel2}/{email}/{cpf}/{rg}/{org}/{ob?}")]
+        public ActionResult<string> professor(string nome, string niver, string cbj, string tel1, string tel2, string email, string cpf, string rg, string org, string ob)
+        {
+            int dia = int.Parse(niver.Split('-')[2]);
+            int mes = int.Parse(niver.Split('-')[1]);
+            int ano = int.Parse(niver.Split('-')[0]);
+            DateTime niverFormat = new DateTime(ano, mes, dia);
+            //DateTime niver = DateTime.Parse("13/07/2000");
+            // nome,cbj,niver,tel1,tel2,email,cpf,rg,org,ob
+            //api/Teste/NA/professor/João Vitor Pessini/2000-07-13/na/989613959/36997436/teste@gmail.com/48927640861/38057603X/ssp/teste
+            return _teste.cadastro(nome, niverFormat, cbj, tel1, tel2, email, cpf, rg, org, ob, "P");
+        }
 
 
 
