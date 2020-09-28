@@ -17,6 +17,8 @@ namespace Judoca
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -27,6 +29,16 @@ namespace Judoca
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddCors(options =>
+                {
+                    options.AddPolicy(name: MyAllowSpecificOrigins,
+                                    builder =>
+                                    {
+                                        builder.WithOrigins("*");
+                                    });
+                });
+
             var chave = "Server=judoca.cfk4trdj3utg.us-east-1.rds.amazonaws.com,1433;Database=Judoca;User ID=admin;Password=master123;";
             services.AddDbContext<JudocaContext>(opt => opt.UseSqlServer(chave));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -37,19 +49,7 @@ namespace Judoca
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            /*
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseHsts();
-            }
-
-            app.UseHttpsRedirection();
-            app.UseMvc();
-             */
+ 
                 app.UseStaticFiles();
                 app.UseDeveloperExceptionPage();
             app.UseMvc(routes =>
@@ -57,7 +57,7 @@ namespace Judoca
                 routes.MapRoute(name: "default", template: "{controller=Home}/{action = Index}/{id?}");
             });
             
-
+            app.UseCors(MyAllowSpecificOrigins);
         }
 
     }
