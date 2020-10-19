@@ -10,7 +10,8 @@ namespace Judoca.Services
     public interface ITesteFacade
     {
         string retorno();
-        string cadastro(string nome, DateTime niver, string cbj, string tel1, string tel2, string email, string cpf, string rg, string org, string ob,string tipo);
+        TblFiliado Busca(string cpf);
+        TblFiliado cadastro(string nome, DateTime niver, string cbj, string tel1, string tel2, string email, string cpf, string rg, string org, string ob,string tipo);
     }
 
     public class Teste : ITesteFacade
@@ -30,7 +31,7 @@ namespace Judoca.Services
             return num.ToString();
         }
 
-        public string cadastro(string nome,DateTime niver,string cbj,string tel1,string tel2,string email,string cpf,string rg,string org, string ob,string tipo)
+        public TblFiliado cadastro(string nome,DateTime niver,string cbj,string tel1,string tel2,string email,string cpf,string rg,string org, string ob,string tipo)
         {
 
             var validacao = (from vali in _context.TblFiliado
@@ -57,19 +58,38 @@ namespace Judoca.Services
 
                 var tag = (from vali in _context.TblFiliado
                            where cpf.Contains(vali.Cpf)
-                           select vali.Id).ToList();
+                           select vali).First();
                 
-                return $"Número de Inscrição: {tag.First().ToString()}";
+                return tag;
 
             }
 
             else
             {
-                return "CPF já cadastrado";
+                TblFiliado falha = new TblFiliado();
+                falha.Id = -1;
+                return falha;
             }
 
 
             
+
+        }
+
+        public TblFiliado Busca(string cpf)
+        {
+            TblFiliado registro = new TblFiliado();
+            try
+            {
+                registro = (from vali in _context.TblFiliado
+                                where cpf.Contains(vali.Cpf)
+                                select vali).First();
+            }
+            catch
+            {
+                registro.Id = -1;
+            }
+            return registro;
 
         }
     }
