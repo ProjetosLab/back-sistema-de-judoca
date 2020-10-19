@@ -35,7 +35,13 @@ namespace Judoca
                     options.AddPolicy(name: MyAllowSpecificOrigins,
                                     builder =>
                                     {
-                                        builder.WithOrigins("*");
+                                        builder.WithOrigins("http://web-judocakid.s3-website-us-east-1.amazonaws.com",
+                                            "http://front-sistema-de-judoca.herokuapp.com");
+                                        builder.AllowAnyOrigin();
+                                        builder.AllowAnyMethod();
+                                        builder.AllowAnyHeader();
+                                        builder.AllowCredentials();
+                                        
                                     });
                 });
 
@@ -46,18 +52,19 @@ namespace Judoca
 
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
  
-                app.UseStaticFiles();
-                app.UseDeveloperExceptionPage();
+            app.UseStaticFiles();
+            app.UseDeveloperExceptionPage();
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseMvc(routes =>
             {
                 routes.MapRoute(name: "default", template: "{controller=Home}/{action = Index}/{id?}");
             });
             
-            app.UseCors(MyAllowSpecificOrigins);
+            
         }
 
     }
