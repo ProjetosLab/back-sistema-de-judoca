@@ -1,0 +1,22 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: mtsmachado8/heroku-deploy@v2.0.3
+        with:
+          # Email Linked to your Heroku Account
+          email: "sa.kgs10@gmail.com"
+          # Your Heroku API Key
+          api_key: 190d2878-423f-4b45-adb2-ac0ea028b22e
+          # Your Heroku App Name
+          app_name: "front-sistema-de-judoca"
+          # Dokerfile path
+          dockerfile_path: ./Dockerfile
