@@ -17,6 +17,6 @@ jobs:
           # Your Heroku API Key
           api_key: 190d2878-423f-4b45-adb2-ac0ea028b22e
           # Your Heroku App Name
-          app_name: "front-sistema-de-judoca"
+          app_name: "sistema-de-judoca"
           # Dokerfile path
           dockerfile_path: ../
