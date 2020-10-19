@@ -19,4 +19,4 @@ jobs:
           # Your Heroku App Name
           app_name: "front-sistema-de-judoca"
           # Dokerfile path
-          dockerfile_path: ../Dockerfile
+          dockerfile_path: ../
