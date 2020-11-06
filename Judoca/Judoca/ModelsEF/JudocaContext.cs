@@ -16,16 +16,17 @@ namespace Judoca.ModelsEF
         }
 
         public virtual DbSet<TblFiliado> TblFiliado { get; set; }
+        public virtual DbSet<TblEntidade> TblEntidade { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server=judoca.cfk4trdj3utg.us-east-1.rds.amazonaws.com,1433;Database=Judoca;User ID=admin;Password=master123;");
             }
         }
-
+        //dotnet ef dbcontext scaffold "Server=judoca.cfk4trdj3utg.us-east-1.rds.amazonaws.com,1433;Database=Judoca;User ID=admin;Password=master123;" Microsoft.EntityFrameworkCore.SqlServer -t [dbo].[TBL_ENTIDADE] -o ModelsEF
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TblFiliado>(entity =>
@@ -93,6 +94,30 @@ namespace Judoca.ModelsEF
                 entity.Property(e => e.Tipo)
                     .HasColumnName("TIPO")
                     .HasMaxLength(1)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<TblEntidade>(entity =>
+            {
+                entity.HasKey(e => e.Id)
+                    .ForSqlServerIsClustered(false);
+
+                entity.ToTable("TBL_ENTIDADE");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Cnpj)
+                    .HasColumnName("CNPJ")
+                    .HasMaxLength(14)
+                    .IsUnicode(false); ;
+
+                entity.Property(e => e.DataCadastro)
+                    .HasColumnName("DATA_CADASTRO")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.Nome)
+                    .HasColumnName("NOME")
+                    .HasMaxLength(120)
                     .IsUnicode(false);
             });
         }
