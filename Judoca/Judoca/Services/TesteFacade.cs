@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Judoca.ModelsEF;
@@ -16,6 +17,12 @@ namespace Judoca.Services
         TblFiliado cadastro(string nome, DateTime niver, string cbj, string tel1, string tel2, string email, string cpf, string rg, string org, string ob,string tipo);
         TblEntidade cadastro_entidade(string nome, string cnpj);
         List<TblEntidade> busca_entidade();
+        List<TblFiliado> busca_filiado();
+        bool matricula(int filiado, int entidade, int teste);
+        List<Matricula> busca_matricula(int filiado);
+        Matricula unica_matricula(int filiado, int entidade);
+        Matricula renova_matricula(int id, int mes);
+
     }
 
     public class Teste : ITesteFacade
@@ -172,5 +179,75 @@ namespace Judoca.Services
 
             return validacao;
         }
+
+        public List<TblFiliado> busca_filiado()
+        {
+            var validacao = (from vali in _context.TblFiliado
+                             select vali).ToList();
+
+            return validacao;
+        }
+
+        // Faz o vinculo entre filiado e entidade
+        public bool matricula(int filiado, int entidade, int teste)
+        {
+            DateTime cadastro = DateTime.Now;
+            DateTime final = DateTime.Now.AddMonths(teste);
+
+            TblCarteira a = new TblCarteira();
+            a.DataInicio = cadastro;
+            a.DataFinal = final;
+            a.IdFiliado = filiado;
+            a.IdEntidade = entidade;
+
+            _context.TblCarteiras.Add(a);
+            _context.SaveChanges();
+
+            return true;
+        }
+
+        public List<Matricula> busca_matricula(int filiado)
+        {
+            var retorno = (from a in _context.Matricula
+                           where a.ID_FILIADO == filiado
+                           select a).ToList();
+
+            return retorno;
+        }
+
+        public Matricula unica_matricula(int filiado, int entidade)
+        {
+            
+
+            var teste = (from a in _context.Matricula
+                        where a.ID_ENTIDADE == entidade && a.ID_FILIADO == filiado
+                        select a).First();
+            
+            return teste;
+        }
+
+        public Matricula renova_matricula(int id,int mes)
+        {
+
+            var teste = (from a in _context.TblCarteiras
+                         where a.Id == id
+                         select a).First();
+
+            DateTime var = new DateTime();
+            var = DateTime.Parse(teste.DataFinal.ToString()).AddMonths(mes);
+            teste.DataFinal = var;
+            teste.DataInicio = DateTime.Now;
+            _context.TblCarteiras.Update(teste);
+            _context.SaveChanges();
+
+            var retorno = (from a in _context.Matricula
+                           where a.ID == id
+                           select a).First();
+
+            return retorno;
+
+        }
+
+
     }
 }

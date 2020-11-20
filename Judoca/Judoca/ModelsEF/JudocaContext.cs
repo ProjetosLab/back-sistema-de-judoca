@@ -17,7 +17,8 @@ namespace Judoca.ModelsEF
 
         public virtual DbSet<TblFiliado> TblFiliado { get; set; }
         public virtual DbSet<TblEntidade> TblEntidade { get; set; }
-
+        public virtual DbSet<TblCarteira> TblCarteiras { get; set; }
+        internal DbQuery<Matricula> Matricula { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -29,6 +30,7 @@ namespace Judoca.ModelsEF
         //dotnet ef dbcontext scaffold "Server=judoca.cfk4trdj3utg.us-east-1.rds.amazonaws.com,1433;Database=Judoca;User ID=admin;Password=master123;" Microsoft.EntityFrameworkCore.SqlServer -t [dbo].[TBL_ENTIDADE] -o ModelsEF
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Query<Matricula>().ToView("Associados","dbo");
             modelBuilder.Entity<TblFiliado>(entity =>
             {
                 entity.HasKey(e => e.Id)
@@ -119,6 +121,28 @@ namespace Judoca.ModelsEF
                     .HasColumnName("NOME")
                     .HasMaxLength(120)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<TblCarteira>(entity =>
+            {
+                entity.HasKey(e => e.Id)
+                    .ForSqlServerIsClustered(false);
+
+                entity.ToTable("TBL_CARTEIRA");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.DataFinal)
+                    .HasColumnType("date")
+                    .HasColumnName("DATA_FINAL");
+
+                entity.Property(e => e.DataInicio)
+                    .HasColumnType("date")
+                    .HasColumnName("DATA_INICIO");
+
+                entity.Property(e => e.IdEntidade).HasColumnName("ID_ENTIDADE");
+
+                entity.Property(e => e.IdFiliado).HasColumnName("ID_FILIADO");
             });
         }
     }

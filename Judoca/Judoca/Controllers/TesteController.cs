@@ -94,6 +94,62 @@ namespace Judoca.Controllers
         }
 
 
+        //------------- Data de modificação 19/11 por Joao Pessini ----------
+        // busca entidades
+        [HttpGet("NA/filiado/busca")]
+        public ActionResult<List<TblFiliado>> BuscaFiliado(string nome, string cnpj)
+        {
+            //api/Teste/NA/filiado/busca
+            return _teste.busca_filiado();
+        }
+
+        //------------- Data de modificação 20/11 por Joao Pessini ----------
+        // cadastro de filiado a entidade
+        [HttpGet("NA/Carteira/{filiado}/{entidade}/{teste}")]
+        public ActionResult<bool> CadastraCarteira(int filiado, int entidade,int teste)
+        {
+            //api/Teste/NA/Carteira/33/4/1
+            return _teste.matricula(filiado,entidade,teste);
+        }
+
+        //------------- Data de modificação 20/11 por Joao Pessini ----------
+        // Retorna uma lista de associado
+        [HttpGet("NA/Carteira/lista/{filiado}")]
+        public ActionResult<List<Matricula>> BuscaMatricula(int filiado)
+        {
+            //api/Teste/NA/Carteira/lista/33
+            return _teste.busca_matricula(filiado);
+        }
+
+        //------------- Data de modificação 20/11 por Joao Pessini ----------
+        // RETORNA APENAS UM ASSOCIADO
+        [HttpGet("NA/Carteira/busca/{filiado}/{entidade}")]
+        public ActionResult<Matricula> UnicaMatricula(int filiado, int entidade)
+        {
+            //api/Teste/NA/Carteira/busca/33/4
+            return _teste.unica_matricula(filiado, entidade);
+        }
+
+        //------------- Data de modificação 20/11 por Joao Pessini ----------
+        // Renova Matricula
+        [HttpGet("NA/Carteira/renova/{id}/{mes}")]
+        public ActionResult<Matricula> RenovaMatricula(int id, int mes)
+        {
+            //api/Teste/NA/Carteira/renova/4/2
+            return _teste.renova_matricula(id, mes);
+        }
 
     }
 }
+
+/*
+rota para atualizar cadastro:
+api/Teste/NA/atualizar/{id}/{nome}/{niver}/{cbj}/{tel1}/{tel2}/{email}/{cpf}/{rg}/{org}/{ob?}/{tipo}
+
+rota para cadastro de entidade:
+api/Teste/NA/entidade/{nome}/{cnpj}
+
+rota para trazer lista de entidades cadastradas:
+api/Teste/NA/entidade/busca
+
+ */
