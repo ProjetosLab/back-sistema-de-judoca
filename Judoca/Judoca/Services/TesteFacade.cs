@@ -13,7 +13,7 @@ namespace Judoca.Services
     {
         TblFiliado Att(int id, string nome, DateTime niver, string cbj, string tel1, string tel2, string email, string cpf, string rg, string org, string ob, string tipo);
         string retorno();
-        TblFiliado Busca(string cpf);
+        List<TblFiliado> Busca(string cpf);
         TblFiliado cadastro(string nome, DateTime niver, string cbj, string tel1, string tel2, string email, string cpf, string rg, string org, string ob,string tipo);
         TblEntidade cadastro_entidade(string nome, string cnpj);
         List<TblEntidade> busca_entidade();
@@ -22,6 +22,7 @@ namespace Judoca.Services
         List<Matricula> busca_matricula(int filiado);
         Matricula unica_matricula(int filiado, int entidade);
         Matricula renova_matricula(int id, int mes);
+        List<TblFiliado> busca_professor();
 
     }
 
@@ -120,19 +121,20 @@ namespace Judoca.Services
 
         }
 
-        public TblFiliado Busca(string cpf)
+        public List<TblFiliado> Busca(string cpf)
         {
-            TblFiliado registro = new TblFiliado();
-            try
-            {
-                registro = (from vali in _context.TblFiliado
-                                where cpf.Contains(vali.Cpf)
-                                select vali).First();
-            }
-            catch
-            {
-                registro.Id = -1;
-            }
+
+            /*
+               var registro = (from vali in _context.TblFiliado
+                                    where cpf.Contains(vali.Nome)
+                                    select vali).ToList();
+            */
+
+            var registro = (from vali in _context.TblFiliado
+                            where vali.Nome.Contains(cpf)
+                            select vali).ToList();
+
+
             return registro;
 
         }
@@ -183,6 +185,16 @@ namespace Judoca.Services
         public List<TblFiliado> busca_filiado()
         {
             var validacao = (from vali in _context.TblFiliado
+                             where vali.Tipo == "A"
+                             select vali).ToList();
+
+            return validacao;
+        }
+
+        public List<TblFiliado> busca_professor()
+        {
+            var validacao = (from vali in _context.TblFiliado
+                             where vali.Tipo == "P"
                              select vali).ToList();
 
             return validacao;
@@ -234,7 +246,15 @@ namespace Judoca.Services
                          select a).First();
 
             DateTime var = new DateTime();
-            var = DateTime.Parse(teste.DataFinal.ToString()).AddMonths(mes);
+            if (teste.DataFinal < DateTime.Now)
+            {
+                var = DateTime.Now.AddMonths(mes);
+            }
+            else
+            {
+                var = DateTime.Parse(teste.DataFinal.ToString()).AddMonths(mes);
+            }
+            
             teste.DataFinal = var;
             teste.DataInicio = DateTime.Now;
             _context.TblCarteiras.Update(teste);

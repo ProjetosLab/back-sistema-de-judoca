@@ -56,9 +56,10 @@ namespace Judoca.Controllers
 
 
         [HttpGet("NA/pesquisa/{cpf}")]
-        public ActionResult<TblFiliado> Pesquisa(string cpf)
+        public ActionResult<List<TblFiliado>> Pesquisa(string cpf)
         {
             return _teste.Busca(cpf);
+            //api/Teste/NA/pesquisa/João
         }
 
         //------------- Data de modificação 03/11 por Joao Pessini ----------
@@ -96,11 +97,17 @@ namespace Judoca.Controllers
 
         //------------- Data de modificação 19/11 por Joao Pessini ----------
         // busca entidades
-        [HttpGet("NA/filiado/busca")]
-        public ActionResult<List<TblFiliado>> BuscaFiliado(string nome, string cnpj)
+        [HttpGet("NA/filiado/aluno/busca")]
+        public ActionResult<List<TblFiliado>> BuscaAluno()
+        {
+            //api/Teste/NA/filiado/aluno/busca
+            return _teste.busca_filiado();
+        }
+        [HttpGet("NA/filiado/professor/busca")]
+        public ActionResult<List<TblFiliado>> BuscaProfessor()
         {
             //api/Teste/NA/filiado/busca
-            return _teste.busca_filiado();
+            return _teste.busca_professor();
         }
 
         //------------- Data de modificação 20/11 por Joao Pessini ----------
@@ -135,9 +142,11 @@ namespace Judoca.Controllers
         [HttpGet("NA/Carteira/renova/{id}/{mes}")]
         public ActionResult<Matricula> RenovaMatricula(int id, int mes)
         {
-            //api/Teste/NA/Carteira/renova/4/2
+            //api/Teste/NA/Carteira/renova/14/2
             return _teste.renova_matricula(id, mes);
         }
+
+
 
     }
 }
