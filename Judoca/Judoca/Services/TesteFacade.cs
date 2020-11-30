@@ -23,6 +23,10 @@ namespace Judoca.Services
         Matricula unica_matricula(int filiado, int entidade);
         Matricula renova_matricula(int id, int mes);
         List<TblFiliado> busca_professor();
+        TblEntidade Att_Entidade(int id, string nome, DateTime data, string cnpj);
+        List<TblEntidade> BuscaEntidade(string nome);
+        TblEntidade EntidadeCNPJ(string cnpj);
+        TblFiliado FiliadoCPF(string cpf);
 
     }
 
@@ -268,6 +272,61 @@ namespace Judoca.Services
 
         }
 
+        public TblEntidade Att_Entidade(int id, string nome, DateTime data,string cnpj)
+        {
+            TblEntidade atuacao = new TblEntidade();
+            atuacao = (from vali in _context.TblEntidade
+                       where vali.Id == id
+                       select vali).First();
 
+
+
+            atuacao.Nome = nome;
+            atuacao.DataCadastro = data;
+            atuacao.Cnpj = cnpj;
+            _context.TblEntidade.Update(atuacao);
+            _context.SaveChanges();
+
+
+            atuacao = (from vali in _context.TblEntidade
+                       where vali.Id == id
+                       select vali).First();
+
+            return atuacao;
+
+
+        }
+
+        public List<TblEntidade> BuscaEntidade(string nome)
+        {
+
+            var registro = (from vali in _context.TblEntidade
+                            where vali.Nome.Contains(nome)
+                            select vali).ToList();
+
+
+            return registro;
+
+        }
+
+        public TblEntidade EntidadeCNPJ(string cnpj)
+        {
+
+            var registro = (from vali in _context.TblEntidade
+                            where cnpj.Contains(vali.Cnpj)
+                            select vali).First();
+
+            return registro;
+        }
+
+        public TblFiliado FiliadoCPF(string cpf)
+        {
+
+            var registro = (from vali in _context.TblFiliado
+                            where cpf.Contains(vali.Cpf)
+                            select vali).First();
+
+            return registro;
+        }
     }
 }

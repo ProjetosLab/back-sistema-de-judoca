@@ -106,7 +106,7 @@ namespace Judoca.Controllers
         [HttpGet("NA/filiado/professor/busca")]
         public ActionResult<List<TblFiliado>> BuscaProfessor()
         {
-            //api/Teste/NA/filiado/busca
+            //api/Teste/NA/filiado/professor/busca
             return _teste.busca_professor();
         }
 
@@ -145,6 +145,42 @@ namespace Judoca.Controllers
             //api/Teste/NA/Carteira/renova/14/2
             return _teste.renova_matricula(id, mes);
         }
+
+        //------------- Data de modificação 20/11 por Joao Pessini ----------
+        // Atualiza Entidade
+        [HttpGet("NA/entidade/atualizar/{id}/{nome}/{data}/{cnpj}")]
+        public ActionResult<TblEntidade> AttEntidade(int id, string nome, DateTime data, string cnpj)
+        {
+            //api/Teste/NA/entidade/atualizar/6/Kabum/2020-11-05/093764950
+            return _teste.Att_Entidade(id,nome,data,cnpj);
+        }
+        //------------- Data de modificação 20/11 por Joao Pessini ----------
+        // Busca entidade pelo Cnpj
+        [HttpGet("NA/entidade/busca/cnpj/{cnpj}")]
+        public ActionResult<TblEntidade> BuscaCNPJ(string cnpj)
+        {
+            //api/Teste/NA/entidade/busca/cnpj/09376495000112
+            return _teste.EntidadeCNPJ(cnpj);
+        }
+
+        //------------- Data de modificação 20/11 por Joao Pessini ----------
+        // Busca filiado pelo CPF
+        [HttpGet("NA/pesquisa/cliente/{cpf}")]
+        public ActionResult<TblFiliado> BuscaCPF(string cpf)
+        {
+            //api/Teste/NA/pesquisa/cliente/48927640861
+            return _teste.FiliadoCPF(cpf);
+        }
+
+        //------------- Data de modificação 20/11 por Joao Pessini ----------
+        // Busca entidades pelo nome
+        [HttpGet("NA/entidade/busca/nome/{nome}")]
+        public ActionResult<List<TblEntidade>> EntidadeNome(string nome)
+        {
+            //api/Teste/NA/entidade/busca/nome/pichau
+            return _teste.BuscaEntidade(nome);
+        }
+
 
 
 
